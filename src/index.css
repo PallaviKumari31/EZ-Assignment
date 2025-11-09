@@ -1,8 +1,8 @@
 /* STEP 1: Load Google Font */
 @import url("https://fonts.googleapis.com/css2?family=Island+Moments&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Halant:wght@100;200;300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Halant:wght@50;100;200;300;400;500;600;700&display=swap');
 
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@100;200;300;400;500;600;700&display=swap');
 
 @import "tailwindcss";
 

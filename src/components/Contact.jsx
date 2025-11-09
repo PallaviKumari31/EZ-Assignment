@@ -2,7 +2,6 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function Contact() {
-
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -44,12 +43,9 @@ export default function Contact() {
       if (!res.ok) throw new Error("Submission failed");
 
       await res.json();
-
       setStatus({ loading: false, ok: true, err: "" });
       setShowPopup(true);
-
       setForm({ name: "", email: "", phone: "", message: "" });
-
       setTimeout(() => setShowPopup(false), 2500);
     } catch (err) {
       setStatus({ loading: false, ok: false, err: err.message });
@@ -57,8 +53,10 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-20  relative">
-
+    <section
+      id="contact"
+      className="relative py-24 px-6 md:px-12 lg:px-20  overflow-hidden"
+    >
       {/* ✅ Success Popup */}
       <AnimatePresence>
         {showPopup && (
@@ -72,10 +70,12 @@ export default function Contact() {
               initial={{ scale: 0.7, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.7, opacity: 0 }}
-              className="bg-white p-6 rounded-2xl shadow-xl max-w-sm w-full text-center"
+              className="bg-white p-8 rounded-2xl shadow-2xl max-w-sm w-full text-center border border-emerald-100"
             >
-              <h3 className="text-xl font-semibold text-deepgreen">✅ Form Submitted</h3>
-              <p className="text-charcoal/70 mt-2">
+              <h3 className="text-xl font-semibold text-emerald-700">
+                ✅ Form Submitted
+              </h3>
+              <p className="text-gray-600 mt-2">
                 We’ll get back to you shortly.
               </p>
             </motion.div>
@@ -83,75 +83,97 @@ export default function Contact() {
         )}
       </AnimatePresence>
 
-      {/* ✅ Contact Section */}
-      <div className="mx-auto max-w-7xl px-4 grid lg:grid-cols-2 gap-10">
+      {/* ✅ Decorative Mandala */}
+      <img
+        src="/MandalaBottom.webp"
+        className="absolute bottom-0 left-0 w-48 sm:w-60 md:w-80 opacity-80 pointer-events-none"
+      />
 
-        {/* Left Intro */}
+      {/* ✅ Main Grid */}
+      <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 md:gap-20 relative z-10">
+
+        {/* Left Text Section */}
         <motion.div
           initial={{ opacity: 0, x: -40 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.7 }}
           viewport={{ once: true }}
+          className="font-instrument text-gray-800 text-[18px] md:text-[22px] leading-relaxed mt-10 md:mt-28 px-2"
         >
-          <h2 className="text-4xl font-bold">Join the Story</h2>
-          <p className="mt-3 text-charcoal/80">
-            Let's bring your ideas to life through powerful visual storytelling.
+          <p className="mb-4">
+            Whether you have an idea, a question, or simply want to explore
+            how we can work together, we’re just a message away.
+          </p>
+          <p className="mt-2 text-[#E76F34] font-medium">
+            Let’s catch up over coffee.
+          </p>
+          <p className="mt-1 italic text-gray-700">
+            Great stories always begin with a good conversation.
           </p>
         </motion.div>
 
-        {/* Right Form */}
-        <motion.form
-          onSubmit={submit}
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+        {/* Right Form Section */}
+        <motion.div
+          initial={{ opacity: 0, x: 40 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.7 }}
           viewport={{ once: true }}
-          className="bg-white p-6 rounded-2xl border shadow-sm"
+          className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg p-6 sm:p-10 border border-gray-100"
         >
-          <input
-            placeholder="Your Name"
-            value={form.name}
-            onChange={(e) => setForm({ ...form, name: e.target.value })}
-            className="w-full border p-3 rounded-xl"
-          />
-          {errors.name && <p className="text-brick text-sm mt-1">{errors.name}</p>}
+          <h2 className="text-center font-halant text-[30px] md:text-[40px] font-light text-gray-800">
+            Join the Story
+          </h2>
 
-          <input
-            placeholder="Your Email"
-            value={form.email}
-            onChange={(e) => setForm({ ...form, email: e.target.value })}
-            className="w-full border p-3 rounded-xl mt-4"
-          />
-          {errors.email && <p className="text-brick text-sm mt-1">{errors.email}</p>}
+          <p className="text-center mt-2 mb-8 font-instrument text-gray-600 text-[15px] md:text-[17px]">
+            Ready to bring your vision to life? Let’s talk.
+          </p>
 
-          <input
-            placeholder="Phone Number"
-            value={form.phone}
-            onChange={(e) => setForm({ ...form, phone: e.target.value })}
-            className="w-full border p-3 rounded-xl mt-4"
-          />
-          {errors.phone && <p className="text-brick text-sm mt-1">{errors.phone}</p>}
+          <form onSubmit={submit} className="space-y-4">
+            <input
+              placeholder="Your name*"
+              value={form.name}
+              onChange={(e) => setForm({ ...form, name: e.target.value })}
+              className="w-full border border-gray-300 bg-white/90 px-4 py-3 rounded-md outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent transition"
+            />
+            {errors.name && <p className="text-red-600 text-sm">{errors.name}</p>}
 
-          <textarea
-            placeholder="Your Message"
-            rows={4}
-            value={form.message}
-            onChange={(e) => setForm({ ...form, message: e.target.value })}
-            className="w-full border p-3 rounded-xl mt-4"
-          />
-          {errors.message && <p className="text-brick text-sm mt-1">{errors.message}</p>}
+            <input
+              placeholder="Your email*"
+              value={form.email}
+              onChange={(e) => setForm({ ...form, email: e.target.value })}
+              className="w-full border border-gray-300 bg-white/90 px-4 py-3 rounded-md outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent transition"
+            />
+            {errors.email && <p className="text-red-600 text-sm">{errors.email}</p>}
 
-          <button
-            disabled={status.loading}
-            className="mt-5 bg-orange text-white py-3 rounded-2xl w-full disabled:opacity-60"
-          >
-            {status.loading ? "Submitting..." : "Submit"}
-          </button>
+            <input
+              placeholder="Phone"
+              value={form.phone}
+              onChange={(e) => setForm({ ...form, phone: e.target.value })}
+              className="w-full border border-gray-300 bg-white/90 px-4 py-3 rounded-md outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent transition"
+            />
+            {errors.phone && <p className="text-red-600 text-sm">{errors.phone}</p>}
 
-          {status.err && (
-            <p className="text-brick text-sm mt-3">{status.err}</p>
-          )}
-        </motion.form>
+            <textarea
+              placeholder="Your message*"
+              rows={4}
+              value={form.message}
+              onChange={(e) => setForm({ ...form, message: e.target.value })}
+              className="w-full border border-gray-300 bg-white/90 px-4 py-3 rounded-md outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent transition resize-none"
+            />
+            {errors.message && <p className="text-red-600 text-sm">{errors.message}</p>}
+
+            <button
+              disabled={status.loading}
+              className="w-full cursor-pointer bg-[#E76F34] text-white px-6 py-3 rounded-full font-medium shadow-md hover:bg-[#d95f25] transition-all duration-200 disabled:opacity-60"
+            >
+              {status.loading ? "Submitting..." : "Submit"}
+            </button>
+          </form>
+
+          <p className="text-center text-[#E76F34] mt-6 font-instrument text-sm md:text-base">
+            vemita@varnanfilms.co.in &nbsp; | &nbsp; +91 98736 84567
+          </p>
+        </motion.div>
       </div>
     </section>
   );
